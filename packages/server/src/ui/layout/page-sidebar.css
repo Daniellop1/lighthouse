@@ -1,0 +1,102 @@
+/**
+ * @license Copyright 2019 Google Inc. All Rights Reserved.
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+ */
+
+.page-sidebar {
+  position: fixed;
+  top: 0;
+  left: calc(-1 * var(--page-sidebar-width));
+  z-index: 15;
+
+  height: 100vh;
+  width: var(--page-sidebar-width);
+
+  color: var(--inverted-text-color);
+  background: var(--inverted-background-color);
+
+  transition: left 0.5s;
+}
+
+.page-sidebar--open {
+  left: 0;
+  box-shadow: 0 0 10px var(--inverted-background-color);
+}
+
+.page-sidebar__header {
+  height: var(--page-header-height);
+  width: 100%;
+  padding: var(--page-header-vertical-padding) var(--page-header-horizontal-padding);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  cursor: pointer;
+}
+
+.page-sidebar__header > * {
+  margin-right: var(--base-spacing);
+}
+
+.page-sidebar__logo {
+  width: var(--page-header-content-height);
+  height: var(--page-header-content-height);
+  background-image: url('../logo.svg');
+}
+
+.page-sidebar__content {
+  padding: 0 var(--page-header-horizontal-padding) var(--page-header-vertical-padding) var(--page-header-horizontal-padding);
+  max-height: calc(100% - var(--subtext-font-size) - var(--page-header-height) - var(--page-header-vertical-padding) * 2);
+  overflow: auto;
+}
+
+.page-sidebar__content ul {
+  list-style: none;
+  padding: 0;
+}
+
+.page-sidebar__link {
+  display: flex;
+  align-items: center;
+  height: var(--page-sidebar-nav-item-height);
+  margin-top: var(--base-spacing);
+}
+
+.page-sidebar__link a:first-child {
+  flex-grow: 1;
+
+  color: var(--inverted-secondary-text-color);
+  text-decoration: none;
+}
+
+.page-sidebar__link a:last-child,
+.page-sidebar__link a i.material-icons {
+  color: var(--inverted-secondary-text-color);
+  font-size: var(--base-font-size);
+  height: var(--base-font-size);
+}
+
+.page-sidebar__link a.active,
+.page-sidebar__link a:hover,
+.page-sidebar__link a i.material-icons:hover {
+  color: var(--inverted-text-color);
+  text-decoration: none;
+}
+
+.page-sidebar__footer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: var(--base-spacing);
+  text-align: center;
+
+  color: var(--inverted-secondary-text-color);
+  font-size: var(--subtext-font-size);
+}
+
+.page-sidebar__issue-link,
+.page-sidebar__issue-link:visited {
+  color: var(--inverted-text-color);
+  text-decoration: none;
+}

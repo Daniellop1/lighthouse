@@ -1,0 +1,106 @@
+/**
+ * @license Copyright 2019 Google Inc. All Rights Reserved.
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+ */
+
+.audit-detail-pane {
+  position: fixed;
+  top: var(--page-header-height);
+  right: 0;
+  left: 40%;
+  bottom: 0;
+  z-index: 5;
+  padding-bottom: 70vh;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  background: var(--highlighted-background-color);
+  border-left: 1px solid var(--base-border-color);
+}
+
+#storybook-test-root .audit-detail-pane {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: initial;
+  height: max-content;
+  overflow-y: visible;
+}
+
+.audit-detail-pane__close {
+  position: fixed;
+  z-index: 10;
+  top: calc(var(--page-header-height) + 10px);
+  right: 20px;
+
+  height: 30px;
+  width: 30px;
+  border-radius: 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: var(--secondary-background-color);
+  cursor: pointer;
+}
+
+#storybook-test-root .audit-detail-pane__close {
+  top: 10px;
+}
+
+.audit-detail-pane__close i.material-icons {
+  font-size: 22px;
+}
+
+.audit-detail-pane__audit {
+  position: relative;
+  padding: calc(2 * var(--base-spacing));
+  padding-left: calc(3 * var(--base-spacing));
+
+  border-bottom: 1px solid var(--base-border-color);
+}
+
+.audit-detail-pane__score {
+  position: absolute;
+  left: var(--base-spacing);
+  top: calc(2 * var(--base-spacing) + var(--header-font-size) / 4);
+}
+
+.audit-detail-pane__audit-title {
+  font-size: var(--header-font-size);
+}
+
+.audit-detail-pane__audit-description {
+  color: var(--secondary-text-color);
+  margin-top: calc(var(--base-spacing) / 2);
+}
+
+.audit-detail-pane__audit-details {
+  margin-top: var(--base-spacing);
+}
+
+.audit-detail-pane__audit-details-summary {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: var(--base-spacing) 0;
+}
+
+.audit-detail-pane__audit-details-summary .audit-numeric-diff {
+  width: 100%;
+}
+
+.audit-detail-pane__audit-details-summary .audit-numeric-diff__bar {
+  flex-grow: 1;
+}
+
+.audit-detail-pane__audit-details--binary {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-family: var(--monospace-font-family);
+  font-size: var(--monospace-font-size);
+}

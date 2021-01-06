@@ -1,0 +1,10 @@
+{
+  "ci": {
+    "extends": "./lighthouserc.json",
+    "assert": {
+      "assertions": {
+        "first-contentful-paint": ["error", {"maxNumericValue": 1}]
+      }
+    }
+  }
+}

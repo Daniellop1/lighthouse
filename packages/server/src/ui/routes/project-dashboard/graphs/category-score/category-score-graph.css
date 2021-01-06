@@ -1,0 +1,174 @@
+/**
+ * @license Copyright 2020 Google Inc. All Rights Reserved.
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+ */
+
+.category-score-graph {
+  position: relative;
+  width: 100%;
+  padding: var(--paper-padding);
+  overflow: visible;
+
+  display: flex;
+  flex-direction: column;
+
+  border-bottom: 1px solid var(--base-border-color);
+}
+
+.category-score-graph h2 {
+  margin-bottom: var(--base-spacing);
+
+  font-size: var(--base-font-size);
+  font-weight: var(--medium-font-weight);
+}
+
+.category-score-graph__score-graph {
+  width: 100%;
+  height: 175px;
+}
+
+.category-score-graph--distribution .category-score-graph__score-graph {
+  height: 250px;
+}
+
+.category-score-graph__score-graph .score-line-fill.score--pass {
+  fill: var(--pass-color);
+}
+
+.category-score-graph__score-graph .score-line-fill.score--average {
+  fill: var(--average-color);
+}
+
+.category-score-graph__score-graph .score-line-fill.score--fail {
+  fill: var(--fail-color);
+}
+
+.category-score-graph__score-graph .version-change-warning {
+  fill: var(--neutral-color);
+  opacity: 0.1;
+}
+
+.category-score-graph__score-graph .score-error-range {
+  fill: var(--secondary-background-color);
+}
+
+.category-score-graph__score-graph .score-guide {
+  fill: none;
+  stroke: var(--base-border-color);
+}
+
+.category-score-graph__score-graph .score-point.score--pass {
+  fill: var(--pass-color);
+}
+
+.category-score-graph__score-graph .score-point.score--average {
+  fill: var(--average-color);
+}
+
+.category-score-graph__score-graph .score-point.score--fail {
+  fill: var(--fail-color);
+}
+
+.category-score-graph__score-graph .y-axis path {
+  fill: none;
+  stroke: none;
+}
+
+.category-score-graph__score-graph .y-axis text {
+  font-family: var(--base-font-family);
+  font-weight: var(--medium-font-weight);
+  font-size: var(--subtext-font-size);
+  color: var(--secondary-text-color);
+}
+
+.category-score-graph__score-delta-graph {
+  width: 100%;
+  height: 100px;
+}
+
+.category-score-graph__score-delta-graph .score-delta--improvement {
+  fill: var(--improvement-color);
+}
+
+.category-score-graph__score-delta-graph .score-delta--regression {
+  fill: var(--regression-color);
+}
+
+.category-score-graph__score-delta-graph .score-guide {
+  fill: none;
+  stroke: var(--secondary-background-color);
+}
+
+.category-score-graph__x-axis {
+  position: relative;
+  height: calc(var(--subtext-font-size) * 1.5);
+
+  display: flex;
+  flex-direction: row;
+
+  color: var(--secondary-text-color);
+  font-size: var(--subtext-font-size);
+}
+
+.category-score-graph--distribution .category-score-graph__x-axis div {
+  position: absolute;
+
+  font-weight: var(--medium-font-weight);
+}
+
+.category-score-graph--distribution .category-score-graph__x-axis div div {
+  transform: translate(-50%);
+}
+
+.histogram-bar--pass {
+  fill: var(--pass-color);
+}
+
+.histogram-bar--average {
+  fill: var(--average-color);
+}
+
+.histogram-bar--fail {
+  fill: var(--fail-color);
+}
+
+.category-score-graph__version-change-warning {
+  padding: 0 var(--base-spacing);
+  margin-bottom: var(--base-spacing);
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  color: var(--neutral-color);
+  text-align: center;
+  line-height: var(--base-font-size);
+  font-size: var(--subtext-font-size);
+  font-weight: var(--medium-font-weight);
+}
+
+.category-score-graph__version-change-warning .material-icons {
+  font-size: var(--base-font-size);
+  margin-right: calc(var(--base-spacing) / 2);
+}
+
+.category-score-graph__info-tip {
+  padding: 0 var(--base-spacing);
+  margin-bottom: var(--base-spacing);
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  color: var(--neutral-color);
+  text-align: center;
+  line-height: var(--base-font-size);
+  font-size: var(--subtext-font-size);
+  font-weight: var(--medium-font-weight);
+}
+
+.category-score-graph__info-tip .material-icons {
+  font-size: var(--base-font-size);
+  margin-right: calc(var(--base-spacing) / 2);
+}

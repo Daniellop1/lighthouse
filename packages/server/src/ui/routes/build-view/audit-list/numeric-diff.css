@@ -1,0 +1,113 @@
+/**
+ * @license Copyright 2019 Google Inc. All Rights Reserved.
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+ */
+
+.audit-numeric-diff {
+  --numeric-diff-bar-height: calc(var(--base-font-size) + 8px);
+
+  display: flex;
+  flex-direction: row;
+  font-family: var(--monospace-font-family);
+  font-size: var(--monospace-font-size);
+}
+
+.audit-numeric-diff__bar {
+  position: relative;
+  min-width: 300px;
+  background: var(--secondary-background-color);
+  margin: 0 var(--base-spacing);
+}
+
+@media (max-width: 600px) {
+  .audit-numeric-diff__bar {
+    min-width: 200px;
+  }
+}
+
+.audit-numeric-diff__box {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: var(--highlighted-background-color);
+
+  transition: left 1s, right 1s;
+}
+
+.audit-numeric-diff__box--improvement {
+  color: var(--improvement-text-color);
+  background: repeating-linear-gradient(
+    60deg,
+    var(--improvement-color),
+    var(--improvement-color) 1px,
+    var(--secondary-background-color) 1px,
+    var(--secondary-background-color) 3px
+  );
+}
+.audit-numeric-diff__box--regression {
+  color: var(--regression-text-color);
+  background: repeating-linear-gradient(
+    60deg,
+    var(--regression-color),
+    var(--regression-color) 1px,
+    var(--secondary-background-color) 1px,
+    var(--secondary-background-color) 3px
+  );
+}
+
+.audit-numeric-diff__now {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+}
+
+.audit-numeric-diff__delta-label {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  padding: 0 calc(var(--base-spacing) / 2);
+
+  line-height: var(--numeric-diff-bar-height);
+  white-space: nowrap;
+  font-weight: var(--medium-font-weight);
+  text-shadow: 1px 1px 0px var(--secondary-background-color),
+    -1px -1px 0px var(--secondary-background-color), -1px 1px 0px var(--secondary-background-color),
+    1px -1px 0px var(--secondary-background-color);
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  transition: left 1s, right 1s;
+}
+
+.audit-numeric-diff__delta-label--narrow-left {
+  left: 2px;
+  right: initial !important;
+}
+
+.audit-numeric-diff__delta-label--narrow-right {
+  left: initial !important;
+  right: 2px;
+}
+
+.audit-numeric-diff__left-label,
+.audit-numeric-diff__right-label {
+  width: 40px;
+  color: var(--secondary-text-color);
+  font-size: var(--subtext-font-size);
+  line-height: var(--numeric-diff-bar-height);
+}
+
+.audit-numeric-diff__left-label {
+  text-align: right;
+}
+
+.audit-numeric-diff__box--improvement .audit-numeric-diff__now {
+  background: var(--improvement-color);
+}
+.audit-numeric-diff__box--regression .audit-numeric-diff__now {
+  background: var(--regression-color);
+}
