@@ -26,7 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Audit live URL
-      uses: jakejarvis/lighthouse-action@master
+      uses: daniellop1/lighthouse@master
       with:
         url: 'https://jarv.is/'
     - name: Upload results as an artifact
@@ -52,9 +52,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Audit Netlify deploy preview
-      uses: jakejarvis/lighthouse-action@master
+      uses: daniellop1/lighthouse@master
       with:
-        netlify_site: 'blissful-heisenberg-16c40f.netlify.com'
+        netlify_site: 'goofy-hopper-9b17d1.netlify.app'
     - uses: actions/upload-artifact@master
       with:
         name: report
