@@ -6,11 +6,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Audit live URL
-      uses: daniellop1/lighthouse
+      uses: jakejarvis/lighthouse-action@master
       with:
         url: 'https://jarv.is/'
     - name: Upload results as an artifact
-      uses: daniellop1/lighthouse
+      uses: actions/upload-artifact@master
       with:
         name: report
         path: './report'
