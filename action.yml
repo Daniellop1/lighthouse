@@ -1,8 +1,10 @@
 name: Audit live site
 icon: check-circle
 description: Run lighthouse CI on actions
-color: yellow
-on: push
+
+branding:
+  icon: "check-square"
+  color: "yellow"
 
 jobs:
   audit:
