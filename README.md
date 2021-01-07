@@ -1,75 +1,80 @@
-# Lighthouse CI
+# GitHub Action for [Lighthouse Auditing](https://developers.google.com/web/tools/lighthouse/)
 
-## Overview
+<p align="center"><img src="https://raw.githubusercontent.com/jakejarvis/lighthouse-action/master/screenshots/logo.png" alt="Lighthouse Logo" width="300"></p>
 
-Lighthouse CI is a suite of tools that make continuously running, saving, retrieving, and asserting against [Lighthouse](https://github.com/GoogleChrome/lighthouse) results as easy as possible.
+This action integrates Google's helpful [Lighthouse audits](https://developers.google.com/web/tools/lighthouse/) for webpages — specifically testing for Performance, Accessibility, Best Practices, SEO, and Progressive Web Apps. Right now, the action will print the five scores (out of 100) to the output and upload HTML and JSON versions of the report as artifacts. In the next release, the action will let you specify thresholds for each test and optionally fail this step if they are not met.
 
-### Quick Start
+<p align="center"><img src="https://raw.githubusercontent.com/jakejarvis/lighthouse-action/master/screenshots/screenshot-report.png" alt="Example HTML report"></p>
+<p align="center"><img src="https://raw.githubusercontent.com/jakejarvis/lighthouse-action/master/screenshots/screenshot-output.png" alt="Example command line output" width="750"></p>
+<p align="center"><img src="https://raw.githubusercontent.com/jakejarvis/lighthouse-action/master/screenshots/screenshot-artifact.png" alt="Example HTML report" width="320"></p>
 
-To get started with GitHub actions for common project configurations, add the following file to your GitHub repository. Follow [the Getting Started guide](./docs/getting-started.md) for a more complete walkthrough and instructions on other providers and setups.
+Inspired by [GoogleChromeLabs/lighthousebot](https://github.com/GoogleChromeLabs/lighthousebot).
 
-**.github/workflows/ci.yml**
+
+## Usage
+
+### `workflow.yml` Example
+
+The following workflow runs a Lighthouse audit on [https://jarv.is/](https://jarv.is/), shows the five scores in the output of the step, and uploads the `.html` and `.json` results as artifacts to download (as shown above).
 
 ```yaml
-name: CI
-on: [push]
+name: Audit live site
+on: push
+
 jobs:
-  lighthouseci:
+  audit:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-      - run: npm install && npm install -g @lhci/cli@0.6.x
-      - run: npm run build
-      - run: lhci autorun
+    - name: Audit live URL
+      uses: jakejarvis/lighthouse-action@master
+      with:
+        url: 'https://jarv.is/'
+    - name: Upload results as an artifact
+      uses: actions/upload-artifact@master
+      with:
+        name: report
+        path: './report'
 ```
 
-### Features
 
-- Get a Lighthouse report alongside every PR.
-- Prevent regressions in accessibility, SEO, offline support, and performance best practices.
-- Track performance metrics and Lighthouse scores over time.
-- Set and keep performance budgets on scripts and images.
-- Run Lighthouse many times to reduce variance.
-- Compare two versions of your site to find improvements and regressions of individual resources.
+### Pull Request Audits with [Netlify Deploy Preview](https://www.netlify.com/docs/continuous-deployment/)
 
-<img src="https://user-images.githubusercontent.com/2301202/70814696-a4c41a00-1d91-11ea-9ed9-77811939c244.png"
-alt="Screenshot of the Lighthouse CI github app UI" width="48.5%"> <img src="https://user-images.githubusercontent.com/2301202/79480502-c8af9a80-7fd3-11ea-8087-52f6c8ba6f03.png"
-alt="Screenshot of the Lighthouse CI server dashboard UI" width="47%">
-<img src="https://user-images.githubusercontent.com/2301202/70814842-ef459680-1d91-11ea-8b55-bb5d44eeb969.png"
-alt="Screenshot of the Lighthouse CI assertion output" width="48%"> <img src="https://user-images.githubusercontent.com/2301202/70814650-85c58800-1d91-11ea-925e-af9d03f1b20d.png"
-alt="Screenshot of the Lighthouse CI server diff UI" width="48%">
+<p align="center"><img src="https://raw.githubusercontent.com/jakejarvis/lighthouse-action/master/screenshots/netlify-logo.png" alt="Netlify Logo" width="300"></p>
 
-### Documentation
+This GitHub action integrates with [Netlify's Deploy Preview](https://www.netlify.com/docs/continuous-deployment/) feature, allowing you to test PRs before accepting them. To enable, you need to pass in your Netlify site's URL (on the Netlify subdomain — also called your "site name" in the Netlify dashboard — **not your custom domain**) to the `netlify_site` input variable:
 
-If you're already familiar with continuous integration and have an existing process, start with [Getting Started](./docs/getting-started.md).
+```yaml
+name: Audit pull request
+on: pull_request
 
-If you're _not_ familiar with continuous integration, start with [Introduction to CI](./docs/introduction-to-ci.md).
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Audit Netlify deploy preview
+      uses: jakejarvis/lighthouse-action@master
+      with:
+        netlify_site: 'blissful-heisenberg-16c40f.netlify.com'
+    - uses: actions/upload-artifact@master
+      with:
+        name: report
+        path: './report'
+```
 
-- [Introduction to CI](./docs/introduction-to-ci.md)
-- [Getting Started](./docs/getting-started.md)
-- [Architecture](./docs/architecture.md)
-- [Troubleshooting / FAQs](./docs/troubleshooting.md)
-- [Configuration](./docs/configuration.md)
-- [Server](./docs/server.md)
-- [Versioning Policy](./docs/version-policy.md)
+<p align="center"><img src="https://raw.githubusercontent.com/jakejarvis/lighthouse-action/master/screenshots/netlify-subdomain.png" alt="Netlify subdomain in dashboard" width="700"></p>
 
-## Related Community Projects
+On pull requests, the PR number will be extracted from the GitHub event data and used to generate the deploy preview URL as follows: `https://deploy-preview-[[PR_NUMBER]]--[[NETLIFY_SITE]].netlify.com`. You can combine the two above examples and include both `url` and `netlify_site` and run on `on: [push, pull_request]` and the appropriate URL will be automatically selected depending on the type of event.
 
-A collection of projects using Lighthouse CI written by the community. If you're using Lighthouse CI in your open source project, open a PR to add it here!
 
-- [Lighthouse CI GitHub Action](https://github.com/treosh/lighthouse-ci-action) - Automatically run Lighthouse CI on every PR with GitHub Actions, no infrastructure required.
+## To-Do
 
-- [Lighthouse CI Starter Example](https://github.com/hchiam/learning-lighthouse-ci) - A minimal example repo that you can use as a template when starting from scratch, offers a beginner-friendly quickstart guide using create-react-app.
+- **Make CI fail if scores do not meet specified thresholds.**
+- Ability to customize flags passed to both Chrome and Lighthouse
+- Batch URL testing
 
-## Community Guides
 
-A collection of unofficial blog posts, tutorials, and guides written by the community on using Lighthouse CI. If you've written up a guide to using Lighthouse CI in your project, open a PR to add it here!
+## License
 
-**NOTE:** This is not official documentation. You're encouraged to familiarize yourself with Lighthouse CI and read through [Getting Started](./docs/getting-started.md) before continuing.
+This project is distributed under the [MIT license](LICENSE.md).
 
-- [Integrate Lighthouse CI for static website generator](https://blog.akansh.com/integrate-lighthouse-ci-with-static-site-generators/) - An article on integrating Lighthouse CI with static website generators like Gatsby, Jekyll, etc.
-
-## Contributing
-
-We welcome contributions to lighthouse-ci! Read our [contributing guide](./CONTRIBUTING.md) to get started.
+License information for bundled third party software can be found in [THIRD_PARTY_NOTICE.md](THIRD_PARTY_NOTICE.md). 
